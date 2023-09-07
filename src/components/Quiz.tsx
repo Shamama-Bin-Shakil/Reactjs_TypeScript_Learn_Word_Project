@@ -17,7 +17,6 @@ const Quiz = () => {
   const navigate = useNavigate();
 
   const { words } = useSelector((state: { root: StateType }) => state.root);
-  console.log(words);
   
   const nextHandler = () => {
     setResult((pre) => [...pre, ans]);

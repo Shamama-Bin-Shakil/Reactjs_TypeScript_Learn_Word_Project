@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 const Learning = () => {
   const [count, setCount] = useState<number>(0);
-  const [audioSrc, setAudioSrc] = useState<string>("");
+  const [audioSrc, setAudioSrc] = useState<string | undefined>("");
   const audioRef = useRef(null);
 
   const searchParams = useSearchParams()[0].get("language") as LangType;
@@ -43,8 +43,12 @@ const Learning = () => {
     dispatch(getWordsRequest());
 
     translateWords(searchParams)
-      .then((arr) => dispatch(getWordsSuccess(arr)))
-      .catch((err) => dispatch(getWordsFail(err)));
+      .then((arr) => {
+        return dispatch(getWordsSuccess(arr));
+      })
+      .catch((err) => {
+        return dispatch(getWordsFail(err));
+      });
 
     if (error) {
       alert(error);
